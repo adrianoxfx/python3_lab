@@ -25,15 +25,20 @@ def print_board(dict_result):
     print("c   %s | %s | %s " %(dict_result["c1"],dict_result["c2"],dict_result["c3"]))
 
 
-def ask_user(player):
+def ask_user(player_of_the_turn):
     while True:
-        coordenada = input("Player %s, use coordenadas para dizer sua jogada EX: a1, c3:  " %(player))
+        coordenada = input("Player %s, use coordenadas para dizer sua jogada EX: a1, c3:  " %(player_of_the_turn))
         if coordenada not in dict_result.keys():
             print ("essa coordenada não existe")
             pass
         else:
             break
     return coordenada
+    
+
+def validate_end_of_match():
+    
+    return False
 
 
 dict_result = {'a1':' ','a2':' ','a3':' ','b1':' ','b2':' ','b3':' ','c1':' ','c2':' ','c3':' '}
@@ -42,10 +47,14 @@ players = {'player1':'','player2':''}
 
 players['player1'],players['player2'] = player_choose()
 
+count=0
 
-# while True:
-#     print_board(dict_result)
+while validate_end_of_match() is not True and count < 9:
+    player_of_the_turn = list(players.keys())[count%2]
 
-#     resp = ask_user(player_choose[0])
-
-#     dict_result[resp[0]] = resp[1]
+    print_board(dict_result)
+    resp = ask_user(player_of_the_turn)
+    dict_result[resp] = players[player_of_the_turn]
+    print (dict_result)
+    count += 1
+   
